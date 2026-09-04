@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Wishlist · 119 items</title>
+<link rel="stylesheet" href="_shared.css">
+<style>
+/* Wishlist-specific styles */
+.wl-header {
+  height: 52px;
+  flex: 0 0 52px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 14px;
+  background: #fff;
+}
+.wl-header .back { display: flex; align-items: center; }
+.wl-header .info { flex: 1; }
+.wl-header .info h1 { font-size: 16px; font-weight: 700; }
+.wl-header .info span { font-size: 12px; color: var(--muted); }
+.wl-header .icons { display: flex; align-items: center; gap: 14px; }
+.wl-header .cart-badge {
+  position: relative;
+}
+.wl-header .cart-badge::after {
+  content: "1";
+  position: absolute;
+  top: -6px; right: -6px;
+  width: 16px; height: 16px;
+  background: var(--pink);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tabs-row {
+  display: flex;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #fff;
+}
+.tab-btn {
+  flex: 1;
+  height: 38px;
+  border: 1px solid var(--divider);
+  border-radius: 8px;
+  background: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--text);
+}
+.tab-btn.active {
+  border-color: var(--purple);
+  color: var(--purple);
+  background: var(--lavender);
+}
+
+.cat-chips {
+  display: flex;
+  gap: 12px;
+  padding: 12px 14px;
+  overflow-x: auto;
+  background: #fff;
+  border-bottom: 1px solid var(--divider);
+  scrollbar-width: none;
+}
+.cat-chips::-webkit-scrollbar { display: none; }
+.cat-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+}
+.cat-chip .icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #F5F5F6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.cat-chip .icon img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+.cat-chip span {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.promo-banner {
+  margin: 12px 14px;
+  background: linear-gradient(90deg, #2874f0 0%, #1e5dc8 100%);
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+}
+.promo-banner .card-img {
+  width: 50px;
+  height: 32px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.promo-banner .card-img svg { width: 24px; height: 24px; }
+.promo-banner .promo-text { flex: 1; }
+.promo-banner .promo-text .title { font-size: 14px; font-weight: 700; }
+.promo-banner .promo-text .sub { font-size: 10px; opacity: 0.9; margin-top: 2px; }
+.promo-banner .apply-btn {
+  background: #fff;
+  color: #2874f0;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.wl-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 12px 10px 100px;
+  background: #F5F5F6;
+}
+.wl-item {
+  background: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.wl-item .img-wrap {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  background: #f0f0f0;
+}
+.wl-item .img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.wl-item .rating-badge {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  background: rgba(255,255,255,0.95);
+  border-radius: 3px;
+  padding: 3px 6px;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.wl-item .rating-badge svg { width: 8px; height: 8px; }
+.wl-item .details {
+  padding: 8px 10px;
+}
+.wl-item .brand {
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.wl-item .name {
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 2px;
+}
+.wl-item .price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+.wl-item .price-row .now {
+  font-size: 13px;
+  font-weight: 700;
+}
+.wl-item .price-row .off {
+  font-size: 10px;
+  color: var(--orange);
+  font-weight: 600;
+}
+.wl-item .price-row .mrp {
+  font-size: 10px;
+  color: var(--muted);
+  text-decoration: line-through;
+}
+.wl-item .actions {
+  display: flex;
+  border-top: 1px solid var(--divider);
+  margin-top: 8px;
+}
+.wl-item .actions button {
+  flex: 1;
+  height: 36px;
+  border: none;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid var(--divider);
+  cursor: pointer;
+}
+.wl-item .actions button:last-child { border-right: none; }
+.wl-item .actions button svg { width: 16px; height: 16px; color: var(--muted); }
+.wl-item .add-btn {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: #fff;
+  border: 1px solid var(--pink);
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--pink);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+.wl-item .add-btn svg { width: 12px; height: 12px; }
+</style>
+</head>
+<body>
+
+<div class="phone">
+
+  <!-- status bar -->
+  <div class="status">
+    <span>21:23</span>
+    <span class="icons">
+      <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 11.2 10.1 8.8a3.1 3.1 0 0 0-4.2 0L8 11.2Zm-4-4.5a6.6 6.6 0 0 1 8 0l1.4-1.6a8.7 8.7 0 0 0-10.8 0L4 6.7ZM8 .8a11 11 0 0 0-7.1 2.6L2.3 5A9 9 0 0 1 8 3a9 9 0 0 1 5.7 2l1.4-1.6A11 11 0 0 0 8 .8Z"/></svg>
+      <svg width="26" height="12" viewBox="0 0 26 12" fill="none"><rect x=".6" y=".6" width="21" height="10.8" rx="3" stroke="currentColor" stroke-opacity=".38"/><rect x="2.2" y="2.2" width="17" height="7.6" rx="1.8" fill="currentColor"/><path d="M23.2 4.2v3.6a2 2 0 0 0 0-3.6Z" fill="currentColor" fill-opacity=".45"/></svg>
+    </span>
+  </div>
+
+  <!-- wishlist header -->
+  <div class="wl-header">
+    <span class="back" data-href="1-search.html">
+      <svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M8 1 1.5 8 8 15" stroke="#282C3F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>
+    <div class="info">
+      <h1>Wishlist</h1>
+      <span>119 items</span>
+    </div>
+    <div class="icons">
+      <svg width="19" height="19" viewBox="0 0 20 20" fill="none"><path d="M7 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4m10 0h-4m4 0v14a2 2 0 0 1-2 2h-2m4-16-4 4m4-4v4h-4" stroke="#282C3F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="cart-badge">
+        <svg width="19" height="19" viewBox="0 0 18 20" fill="none"><path d="M2 6h14l-1 12H3L2 6Z" stroke="#282C3F" stroke-width="1.6" stroke-linejoin="round"/><path d="M6 7.5V5a3 3 0 0 1 6 0v2.5" stroke="#282C3F" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </span>
+    </div>
+  </div>
+
+  <!-- address bar -->
+  <div class="address">
+    <svg width="10" height="13" viewBox="0 0 10 13" fill="#282C3F"><path d="M5 0a5 5 0 0 0-5 5c0 3.6 5 8 5 8s5-4.4 5-8a5 5 0 0 0-5-5Zm0 6.8A1.8 1.8 0 1 1 5 3.2a1.8 1.8 0 0 1 0 3.6Z"/></svg>
+    <span class="who">Himanshi Bhambhani - Flat no 407 Meru Aadhi Apart...</span>
+    <svg width="11" height="7" viewBox="0 0 12 8" fill="none"><path d="m1 1.5 5 5 5-5" stroke="#282C3F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+
+  <!-- tabs -->
+  <div class="tabs-row">
+    <button class="tab-btn active">
+      <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="12" y="2" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="2" y="12" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="12" y="12" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.5"/></svg>
+      Collections
+    </button>
+    <button class="tab-btn">
+      <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M10 2v16M2 10h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/></svg>
+      Out of Stock
+    </button>
+  </div>
+
+  <!-- category chips -->
+  <div class="cat-chips">
+    <div class="cat-chip">
+      <div class="icon"><img src="assets/saved-top-1.png" alt="Tops"></div>
+      <span>Tops</span>
+    </div>
+    <div class="cat-chip">
+      <div class="icon"><img src="assets/oversized-tee-card.png" alt="Tshirts"></div>
+      <span>Tshirts</span>
+    </div>
+    <div class="cat-chip">
+      <div class="icon"><img src="assets/bottom-jeans.png" alt="Jeans"></div>
+      <span>Jeans</span>
+    </div>
+    <div class="cat-chip">
+      <div class="icon"><img src="assets/pair-heels.png" alt="Heels"></div>
+      <span>Heels</span>
+    </div>
+    <div class="cat-chip">
+      <div class="icon"><img src="assets/linen-shirt-card.png" alt="Shirts"></div>
+      <span>Shirts</span>
+    </div>
+    <div class="cat-chip">
+      <div class="icon"><img src="assets/bottom-pants.png" alt="Trousers"></div>
+      <span>Trousers</span>
+    </div>
+  </div>
+
+  <div class="body">
+    <!-- promo banner -->
+    <div class="promo-banner">
+      <div class="card-img">
+        <svg viewBox="0 0 24 24" fill="#fff"><rect x="2" y="5" width="20" height="14" rx="2" stroke="#fff" stroke-width="1.5" fill="none"/><path d="M2 10h20" stroke="#fff" stroke-width="1.5"/></svg>
+      </div>
+      <div class="promo-text">
+        <div class="title">₹0 Joining Fee</div>
+        <div class="sub">With Flipkart SBI Credit Card</div>
+      </div>
+      <button class="apply-btn">Apply Now ›</button>
+    </div>
+
+    <!-- wishlist grid -->
+    <div class="wl-grid">
+
+      <!-- Item 1: H&M Oversized Tee -->
+      <div class="wl-item" data-href="2-pdp-1-hm-graphic-tee.html">
+        <div class="img-wrap">
+          <img src="assets/oversized-tee-card.png" alt="H&M Oversized Graphic Tee">
+          <span class="rating-badge">4.3 <svg viewBox="0 0 10 10" fill="#03A685"><path d="M5 0l1.3 3.2L9.7 3.6 7.2 5.9l.8 3.5L5 7.6 2 9.4l.8-3.5L.3 3.6l3.4-.4z"/></svg></span>
+          <button class="add-btn"><svg viewBox="0 0 18 20" fill="none"><path d="M2 6h14l-1 12H3L2 6Z" stroke="currentColor" stroke-width="1.5"/><path d="M6 7.5V5a3 3 0 0 1 6 0v2.5" stroke="currentColor" stroke-width="1.5"/></svg> Add</button>
+        </div>
+        <div class="details">
+          <div class="brand">H&M</div>
+          <div class="name">Oversized Graphic Tee</div>
+          <div class="price-row">
+            <span class="now">₹899</span>
+            <span class="off">31% OFF</span>
+            <span class="mrp">₹1299</span>
+          </div>
+        </div>
+        <div class="actions">
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M3 6h14M8 6V4a2 2 0 0 1 4 0v2m-7 0v10a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V6H5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M10 14v-8m0 0L6 10m4-4 4 4M3 17h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M15 7a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0 0-5 5m5-5v6m-5-1-5 5m5-5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" stroke="currentColor" stroke-width="1.5"/></svg></button>
+        </div>
+      </div>
+
+      <!-- Item 2: SASSAFRAS High Neck -->
+      <div class="wl-item" data-href="2-pdp-2-sassafras-high-neck.html">
+        <div class="img-wrap">
+          <img src="assets/saved-top-2.png" alt="SASSAFRAS High Neck Cropped Top">
+          <span class="rating-badge">4.1 <svg viewBox="0 0 10 10" fill="#03A685"><path d="M5 0l1.3 3.2L9.7 3.6 7.2 5.9l.8 3.5L5 7.6 2 9.4l.8-3.5L.3 3.6l3.4-.4z"/></svg></span>
+          <button class="add-btn"><svg viewBox="0 0 18 20" fill="none"><path d="M2 6h14l-1 12H3L2 6Z" stroke="currentColor" stroke-width="1.5"/><path d="M6 7.5V5a3 3 0 0 1 6 0v2.5" stroke="currentColor" stroke-width="1.5"/></svg> Add</button>
+        </div>
+        <div class="details">
+          <div class="brand">SASSAFRAS</div>
+          <div class="name">High Neck Cropped Top</div>
+          <div class="price-row">
+            <span class="now">₹409</span>
+            <span class="off">59% OFF</span>
+            <span class="mrp">₹999</span>
+          </div>
+        </div>
+        <div class="actions">
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M3 6h14M8 6V4a2 2 0 0 1 4 0v2m-7 0v10a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V6H5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M10 14v-8m0 0L6 10m4-4 4 4M3 17h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M15 7a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0 0-5 5m5-5v6m-5-1-5 5m5-5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" stroke="currentColor" stroke-width="1.5"/></svg></button>
+        </div>
+      </div>
+
+      <!-- Item 3: STYLECAST Printed -->
+      <div class="wl-item" data-href="2-pdp-3-stylecast-printed.html">
+        <div class="img-wrap">
+          <img src="assets/saved-top-1.png" alt="STYLECAST Printed High Neck Top">
+          <span class="rating-badge">3.9 <svg viewBox="0 0 10 10" fill="#03A685"><path d="M5 0l1.3 3.2L9.7 3.6 7.2 5.9l.8 3.5L5 7.6 2 9.4l.8-3.5L.3 3.6l3.4-.4z"/></svg></span>
+          <button class="add-btn"><svg viewBox="0 0 18 20" fill="none"><path d="M2 6h14l-1 12H3L2 6Z" stroke="currentColor" stroke-width="1.5"/><path d="M6 7.5V5a3 3 0 0 1 6 0v2.5" stroke="currentColor" stroke-width="1.5"/></svg> Add</button>
+        </div>
+        <div class="details">
+          <div class="brand">STYLECAST</div>
+          <div class="name">Printed High Neck Top</div>
+          <div class="price-row">
+            <span class="now">₹517</span>
+            <span class="off">63% OFF</span>
+            <span class="mrp">₹1399</span>
+          </div>
+        </div>
+        <div class="actions">
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M3 6h14M8 6V4a2 2 0 0 1 4 0v2m-7 0v10a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V6H5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M10 14v-8m0 0L6 10m4-4 4 4M3 17h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M15 7a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0 0-5 5m5-5v6m-5-1-5 5m5-5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" stroke="currentColor" stroke-width="1.5"/></svg></button>
+        </div>
+      </div>
+
+      <!-- Item 4: SASSAFRAS Ribbed -->
+      <div class="wl-item" data-href="2-pdp-6-sassafras-ribbed.html">
+        <div class="img-wrap">
+          <img src="assets/saved-top-4.png" alt="SASSAFRAS Ribbed Square-Neck Top">
+          <span class="rating-badge">4.2 <svg viewBox="0 0 10 10" fill="#03A685"><path d="M5 0l1.3 3.2L9.7 3.6 7.2 5.9l.8 3.5L5 7.6 2 9.4l.8-3.5L.3 3.6l3.4-.4z"/></svg></span>
+          <button class="add-btn"><svg viewBox="0 0 18 20" fill="none"><path d="M2 6h14l-1 12H3L2 6Z" stroke="currentColor" stroke-width="1.5"/><path d="M6 7.5V5a3 3 0 0 1 6 0v2.5" stroke="currentColor" stroke-width="1.5"/></svg> Add</button>
+        </div>
+        <div class="details">
+          <div class="brand">SASSAFRAS</div>
+          <div class="name">Ribbed Square-Neck Top</div>
+          <div class="price-row">
+            <span class="now">₹569</span>
+            <span class="off">56% OFF</span>
+            <span class="mrp">₹1299</span>
+          </div>
+        </div>
+        <div class="actions">
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M3 6h14M8 6V4a2 2 0 0 1 4 0v2m-7 0v10a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V6H5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M10 14v-8m0 0L6 10m4-4 4 4M3 17h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M15 7a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0 0-5 5m5-5v6m-5-1-5 5m5-5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" stroke="currentColor" stroke-width="1.5"/></svg></button>
+        </div>
+      </div>
+
+      <!-- Item 5: GLITCHEZ Off-shoulder -->
+      <div class="wl-item" data-href="2-pdp-7-glitchez-offshoulder.html">
+        <div class="img-wrap">
+          <img src="assets/sim-chemistry.png" alt="GLITCHEZ Off-Shoulder Fitted Top">
+          <span class="rating-badge">3.8 <svg viewBox="0 0 10 10" fill="#03A685"><path d="M5 0l1.3 3.2L9.7 3.6 7.2 5.9l.8 3.5L5 7.6 2 9.4l.8-3.5L.3 3.6l3.4-.4z"/></svg></span>
+          <button class="add-btn"><svg viewBox="0 0 18 20" fill="none"><path d="M2 6h14l-1 12H3L2 6Z" stroke="currentColor" stroke-width="1.5"/><path d="M6 7.5V5a3 3 0 0 1 6 0v2.5" stroke="currentColor" stroke-width="1.5"/></svg> Add</button>
+        </div>
+        <div class="details">
+          <div class="brand">GLITCHEZ</div>
+          <div class="name">Off-Shoulder Fitted Top</div>
+          <div class="price-row">
+            <span class="now">₹559</span>
+            <span class="off">57% OFF</span>
+            <span class="mrp">₹1299</span>
+          </div>
+        </div>
+        <div class="actions">
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M3 6h14M8 6V4a2 2 0 0 1 4 0v2m-7 0v10a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V6H5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M10 14v-8m0 0L6 10m4-4 4 4M3 17h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M15 7a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0 0-5 5m5-5v6m-5-1-5 5m5-5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" stroke="currentColor" stroke-width="1.5"/></svg></button>
+        </div>
+      </div>
+
+      <!-- Item 6: glitchez Jeans -->
+      <div class="wl-item">
+        <div class="img-wrap">
+          <img src="assets/bottom-jeans.png" alt="glitchez Wide Leg Light Fade Jeans">
+          <span class="rating-badge">4.0 <svg viewBox="0 0 10 10" fill="#03A685"><path d="M5 0l1.3 3.2L9.7 3.6 7.2 5.9l.8 3.5L5 7.6 2 9.4l.8-3.5L.3 3.6l3.4-.4z"/></svg></span>
+          <button class="add-btn"><svg viewBox="0 0 18 20" fill="none"><path d="M2 6h14l-1 12H3L2 6Z" stroke="currentColor" stroke-width="1.5"/><path d="M6 7.5V5a3 3 0 0 1 6 0v2.5" stroke="currentColor" stroke-width="1.5"/></svg> Add</button>
+        </div>
+        <div class="details">
+          <div class="brand">glitchez</div>
+          <div class="name">Wide Leg Light Fade Jeans</div>
+          <div class="price-row">
+            <span class="now">₹990</span>
+            <span class="off">55% OFF</span>
+            <span class="mrp">₹2199</span>
+          </div>
+        </div>
+        <div class="actions">
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M3 6h14M8 6V4a2 2 0 0 1 4 0v2m-7 0v10a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V6H5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M10 14v-8m0 0L6 10m4-4 4 4M3 17h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M15 7a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0 0-5 5m5-5v6m-5-1-5 5m5-5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" stroke="currentColor" stroke-width="1.5"/></svg></button>
+        </div>
+      </div>
+
+      <!-- Item 7: SASSAFRAS BASICS Shorts -->
+      <div class="wl-item">
+        <div class="img-wrap">
+          <img src="assets/bottom-shorts.png" alt="SASSAFRAS BASICS Denim Shorts">
+          <span class="rating-badge">4.1 <svg viewBox="0 0 10 10" fill="#03A685"><path d="M5 0l1.3 3.2L9.7 3.6 7.2 5.9l.8 3.5L5 7.6 2 9.4l.8-3.5L.3 3.6l3.4-.4z"/></svg></span>
+          <button class="add-btn"><svg viewBox="0 0 18 20" fill="none"><path d="M2 6h14l-1 12H3L2 6Z" stroke="currentColor" stroke-width="1.5"/><path d="M6 7.5V5a3 3 0 0 1 6 0v2.5" stroke="currentColor" stroke-width="1.5"/></svg> Add</button>
+        </div>
+        <div class="details">
+          <div class="brand">SASSAFRAS BASICS</div>
+          <div class="name">Washed Denim Shorts</div>
+          <div class="price-row">
+            <span class="now">₹614</span>
+            <span class="off">59% OFF</span>
+            <span class="mrp">₹1499</span>
+          </div>
+        </div>
+        <div class="actions">
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M3 6h14M8 6V4a2 2 0 0 1 4 0v2m-7 0v10a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V6H5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M10 14v-8m0 0L6 10m4-4 4 4M3 17h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M15 7a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0 0-5 5m5-5v6m-5-1-5 5m5-5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" stroke="currentColor" stroke-width="1.5"/></svg></button>
+        </div>
+      </div>
+
+      <!-- Item 8: HRX Track Pants -->
+      <div class="wl-item">
+        <div class="img-wrap">
+          <img src="assets/bottom-track.png" alt="HRX Track Pants">
+          <span class="rating-badge">4.4 <svg viewBox="0 0 10 10" fill="#03A685"><path d="M5 0l1.3 3.2L9.7 3.6 7.2 5.9l.8 3.5L5 7.6 2 9.4l.8-3.5L.3 3.6l3.4-.4z"/></svg></span>
+          <button class="add-btn"><svg viewBox="0 0 18 20" fill="none"><path d="M2 6h14l-1 12H3L2 6Z" stroke="currentColor" stroke-width="1.5"/><path d="M6 7.5V5a3 3 0 0 1 6 0v2.5" stroke="currentColor" stroke-width="1.5"/></svg> Add</button>
+        </div>
+        <div class="details">
+          <div class="brand">HRX by Hrithik Roshan</div>
+          <div class="name">Rapid-Dry Track Pants</div>
+          <div class="price-row">
+            <span class="now">₹629</span>
+            <span class="off">58% OFF</span>
+            <span class="mrp">₹1499</span>
+          </div>
+        </div>
+        <div class="actions">
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M3 6h14M8 6V4a2 2 0 0 1 4 0v2m-7 0v10a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V6H5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M10 14v-8m0 0L6 10m4-4 4 4M3 17h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M15 7a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0 0-5 5m5-5v6m-5-1-5 5m5-5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" stroke="currentColor" stroke-width="1.5"/></svg></button>
+        </div>
+      </div>
+
+      <!-- Item 9: Lavie Heels -->
+      <div class="wl-item">
+        <div class="img-wrap">
+          <img src="assets/pair-heels.png" alt="Lavie Block Mules">
+          <span class="rating-badge">3.8 <svg viewBox="0 0 10 10" fill="#03A685"><path d="M5 0l1.3 3.2L9.7 3.6 7.2 5.9l.8 3.5L5 7.6 2 9.4l.8-3.5L.3 3.6l3.4-.4z"/></svg></span>
+          <button class="add-btn"><svg viewBox="0 0 18 20" fill="none"><path d="M2 6h14l-1 12H3L2 6Z" stroke="currentColor" stroke-width="1.5"/><path d="M6 7.5V5a3 3 0 0 1 6 0v2.5" stroke="currentColor" stroke-width="1.5"/></svg> Add</button>
+        </div>
+        <div class="details">
+          <div class="brand">Lavie</div>
+          <div class="name">Party Block Mules with Bows</div>
+          <div class="price-row">
+            <span class="now">₹761</span>
+            <span class="off">81% OFF</span>
+            <span class="mrp">₹3999</span>
+          </div>
+        </div>
+        <div class="actions">
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M3 6h14M8 6V4a2 2 0 0 1 4 0v2m-7 0v10a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V6H5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M10 14v-8m0 0L6 10m4-4 4 4M3 17h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M15 7a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0 0-5 5m5-5v6m-5-1-5 5m5-5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" stroke="currentColor" stroke-width="1.5"/></svg></button>
+        </div>
+      </div>
+
+      <!-- Item 10: ASICS Sneakers -->
+      <div class="wl-item">
+        <div class="img-wrap">
+          <img src="assets/pair-sneakers.png" alt="ASICS Running Shoes">
+          <span class="rating-badge">4.5 <svg viewBox="0 0 10 10" fill="#03A685"><path d="M5 0l1.3 3.2L9.7 3.6 7.2 5.9l.8 3.5L5 7.6 2 9.4l.8-3.5L.3 3.6l3.4-.4z"/></svg></span>
+          <button class="add-btn"><svg viewBox="0 0 18 20" fill="none"><path d="M2 6h14l-1 12H3L2 6Z" stroke="currentColor" stroke-width="1.5"/><path d="M6 7.5V5a3 3 0 0 1 6 0v2.5" stroke="currentColor" stroke-width="1.5"/></svg> Add</button>
+        </div>
+        <div class="details">
+          <div class="brand">ASICS</div>
+          <div class="name">JOLT 5 Running Shoes</div>
+          <div class="price-row">
+            <span class="now">₹3659</span>
+            <span class="off">39% OFF</span>
+            <span class="mrp">₹5999</span>
+          </div>
+        </div>
+        <div class="actions">
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M3 6h14M8 6V4a2 2 0 0 1 4 0v2m-7 0v10a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V6H5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M10 14v-8m0 0L6 10m4-4 4 4M3 17h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M15 7a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0 0-5 5m5-5v6m-5-1-5 5m5-5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" stroke="currentColor" stroke-width="1.5"/></svg></button>
+        </div>
+      </div>
+
+      <!-- Item 11: SASSAFRAS Shrug -->
+      <div class="wl-item">
+        <div class="img-wrap">
+          <img src="assets/pair-shrug.png" alt="SASSAFRAS Longline Shrug">
+          <span class="rating-badge">4.0 <svg viewBox="0 0 10 10" fill="#03A685"><path d="M5 0l1.3 3.2L9.7 3.6 7.2 5.9l.8 3.5L5 7.6 2 9.4l.8-3.5L.3 3.6l3.4-.4z"/></svg></span>
+          <button class="add-btn"><svg viewBox="0 0 18 20" fill="none"><path d="M2 6h14l-1 12H3L2 6Z" stroke="currentColor" stroke-width="1.5"/><path d="M6 7.5V5a3 3 0 0 1 6 0v2.5" stroke="currentColor" stroke-width="1.5"/></svg> Add</button>
+        </div>
+        <div class="details">
+          <div class="brand">SASSAFRAS</div>
+          <div class="name">Longline Open-Front Shrug</div>
+          <div class="price-row">
+            <span class="now">₹899</span>
+            <span class="off">55% OFF</span>
+            <span class="mrp">₹1999</span>
+          </div>
+        </div>
+        <div class="actions">
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M3 6h14M8 6V4a2 2 0 0 1 4 0v2m-7 0v10a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V6H5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M10 14v-8m0 0L6 10m4-4 4 4M3 17h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M15 7a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0 0-5 5m5-5v6m-5-1-5 5m5-5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" stroke="currentColor" stroke-width="1.5"/></svg></button>
+        </div>
+      </div>
+
+      <!-- Item 12: Striped Top -->
+      <div class="wl-item" data-href="2-pdp-5-glitchez-striped.html">
+        <div class="img-wrap">
+          <img src="assets/striped-top.png" alt="GLITCHEZ Striped Top">
+          <span class="rating-badge">3.5 <svg viewBox="0 0 10 10" fill="#03A685"><path d="M5 0l1.3 3.2L9.7 3.6 7.2 5.9l.8 3.5L5 7.6 2 9.4l.8-3.5L.3 3.6l3.4-.4z"/></svg></span>
+          <button class="add-btn"><svg viewBox="0 0 18 20" fill="none"><path d="M2 6h14l-1 12H3L2 6Z" stroke="currentColor" stroke-width="1.5"/><path d="M6 7.5V5a3 3 0 0 1 6 0v2.5" stroke="currentColor" stroke-width="1.5"/></svg> Add</button>
+        </div>
+        <div class="details">
+          <div class="brand">GLITCHEZ</div>
+          <div class="name">Striped Top</div>
+          <div class="price-row">
+            <span class="now">₹405</span>
+            <span class="off">59% OFF</span>
+            <span class="mrp">₹999</span>
+          </div>
+        </div>
+        <div class="actions">
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M3 6h14M8 6V4a2 2 0 0 1 4 0v2m-7 0v10a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V6H5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M10 14v-8m0 0L6 10m4-4 4 4M3 17h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button><svg viewBox="0 0 20 20" fill="none"><path d="M15 7a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0 0-5 5m5-5v6m-5-1-5 5m5-5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" stroke="currentColor" stroke-width="1.5"/></svg></button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script src="_proto.js"></script>
+</body>
+</html>
