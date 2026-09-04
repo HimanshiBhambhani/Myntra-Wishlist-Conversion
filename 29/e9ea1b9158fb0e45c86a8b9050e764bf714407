@@ -1,0 +1,23 @@
+2-pdp-9-corsica-round-neck.html
+  s_ecbb58d652ebb2::t_75c0345d7d865b 1-188
+2-pdp-8-roadster-cami.html
+  s_ecbb58d652ebb2::t_58b0a0c71d9162 1-188
+1-search.html
+  s_ecbb58d652ebb2::t_04cd25d9d8c693 148,152-153,160,163-164
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "29e9ea1b9158fb0e45c86a8b9050e764bf714407",
+  "prompts": {},
+  "sessions": {
+    "s_ecbb58d652ebb2": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "06337ec8-67ca-4f03-be29-ef24a19defdb",
+        "model": "claude-opus-4-5"
+      },
+      "human_author": "Himanshi Bhambhani <himanshibhambhani@gmail.com>"
+    }
+  }
+}
