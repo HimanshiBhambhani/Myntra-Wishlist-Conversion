@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Wishlist-aware recommendations · Prototype</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "Helvetica Neue", Arial, sans-serif;
+    background: #14161c;
+    color: #e7e8ee;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 56px;
+    padding: 40px;
+    flex-wrap: wrap;
+  }
+  .device {
+    width: 390px; height: 844px;
+    border: 10px solid #2b2e3a;
+    border-radius: 42px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 24px 70px rgba(0,0,0,.55);
+    flex: 0 0 auto;
+  }
+  iframe { width: 390px; height: 844px; border: 0; display: block; }
+
+  .side { max-width: 380px; }
+  h1 { font-size: 25px; line-height: 1.25; font-weight: 700; letter-spacing: -.3px; }
+  .sub { color: #9a9db0; font-size: 14px; margin-top: 10px; line-height: 1.55; }
+
+  h2 {
+    font-size: 11px; letter-spacing: 1.1px; text-transform: uppercase;
+    color: #7d8095; margin: 30px 0 12px; font-weight: 700;
+  }
+  ol { list-style: none; counter-reset: s; }
+  ol li {
+    counter-increment: s;
+    position: relative;
+    padding: 0 0 15px 34px;
+    font-size: 13.5px; line-height: 1.5; color: #c9cbd8;
+  }
+  ol li::before {
+    content: counter(s);
+    position: absolute; left: 0; top: -1px;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: #FF3F6C; color: #fff;
+    font-size: 11px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  ol li b { color: #fff; font-weight: 600; }
+
+  .jump { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 4px; }
+  .jump a {
+    font-size: 11.5px; color: #c9cbd8; text-decoration: none;
+    border: 1px solid #343849; border-radius: 999px; padding: 6px 12px;
+  }
+  .jump a:hover { border-color: #FF3F6C; color: #fff; }
+  .restart {
+    display: inline-block; margin-top: 18px;
+    background: #FF3F6C; color: #fff; text-decoration: none;
+    font-size: 12.5px; font-weight: 700;
+    border-radius: 999px; padding: 10px 20px;
+    border: 0; cursor: pointer; font-family: inherit;
+  }
+</style>
+</head>
+<body>
+
+<div class="device">
+  <iframe id="stage" src="1-search.html" title="Prototype"></iframe>
+</div>
+
+<div class="side">
+  <h1>Wishlist-aware<br>recommendations</h1>
+  <p class="sub">
+    A saved item resurfaces at the moment the need appears — first in search,
+    then as the piece that completes an outfit.
+  </p>
+
+  <h2>Try this path</h2>
+  <ol>
+    <li>You are on <b>Black Tops Women</b>. The strip under the filters shows the black tops you already saved.</li>
+    <li>Tap any saved card, or the striped top in the results, to open its product page.</li>
+    <li>Scroll to <b>Pair with this</b> — the bottoms in your wishlist that finish the look.</li>
+    <li>Tap the <b>×</b> on any saved card to hide it. It greys out in place and offers an undo.</li>
+    <li>Tap <b>Why this?</b> to see the explanation and the controls.</li>
+  </ol>
+
+  <h2>Jump to a screen</h2>
+  <div class="jump">
+    <a href="#" data-go="1-search.html">Search</a>
+    <a href="#" data-go="2-pdp-1-hm-graphic-tee.html">H&amp;M tee</a>
+    <a href="#" data-go="2-pdp-2-sassafras-high-neck.html">SASSAFRAS</a>
+    <a href="#" data-go="2-pdp-3-stylecast-printed.html">STYLECAST</a>
+    <a href="#" data-go="2-pdp-4-stylecast-slyck-flared.html">Slyck flared</a>
+    <a href="#" data-go="2-pdp-5-glitchez-striped.html">Striped top</a>
+    <a href="#" data-go="3-dismiss.html">Dismissal</a>
+    <a href="#" data-go="4-preferences.html">Preferences</a>
+  </div>
+
+  <button class="restart" id="restart">Restart from search</button>
+</div>
+
+<script>
+  var stage = document.getElementById('stage');
+  document.querySelectorAll('[data-go]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      stage.src = a.getAttribute('data-go');
+    });
+  });
+  document.getElementById('restart').addEventListener('click', function () {
+    stage.src = '1-search.html';
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,442 @@
+/* Myntra mobile app mockup — shared design system
+   Frame is a fixed 390x844 iPhone viewport so every screen exports at identical size. */
+
+:root {
+  --pink: #FF3F6C;
+  --pink-bg: #FFF4F6;
+  --pink-border: #FFD3DE;
+  --text: #282C3F;
+  --muted: #94969F;
+  --green: #03A685;
+  --orange: #FF905A;
+  --divider: #EAEAEC;
+  --lavender: #EFEDFB;
+  --purple: #6B4EFF;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+[data-href], .xbtn, .why, .cta button, .sw { cursor: pointer; }
+[data-href]:active { opacity: .72; }
+
+body {
+  background: #E9E9EF;
+  font-family: -apple-system, "Helvetica Neue", "Inter", Arial, sans-serif;
+  color: var(--text);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  padding: 32px;
+  justify-content: center;
+}
+
+.phone {
+  width: 390px;
+  height: 844px;
+  background: #fff;
+  overflow: hidden;
+  position: relative;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, .18);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- status bar ---------- */
+.status {
+  height: 44px;
+  flex: 0 0 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px 0 26px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: .2px;
+}
+.status .icons { display: flex; align-items: center; gap: 5px; }
+
+/* ---------- header ---------- */
+.header {
+  height: 52px;
+  flex: 0 0 52px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px;
+  background: #fff;
+}
+.header .title {
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .3px;
+  flex: 1;
+  line-height: 1.15;
+}
+.header .actions { display: flex; align-items: center; gap: 16px; }
+
+.mlogo { width: 30px; height: 21px; flex: 0 0 30px; object-fit: contain; }
+
+/* ---------- address bar ---------- */
+.address {
+  flex: 0 0 34px;
+  background: var(--lavender);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 14px;
+  font-size: 11.5px;
+}
+.address .who { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---------- chip row ---------- */
+.chips {
+  flex: 0 0 46px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 14px;
+  overflow: hidden;
+}
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid var(--divider);
+  border-radius: 999px;
+  padding: 6px 11px;
+  font-size: 11.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  background: #fff;
+}
+.chip b { color: var(--pink); font-weight: 800; font-style: italic; }
+
+/* ---------- scroll body ---------- */
+.body { flex: 1; overflow-y: auto; overflow-x: hidden; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.body::-webkit-scrollbar { display: none; }
+
+/* ---------- wishlist strip ---------- */
+.wl {
+  background: var(--pink-bg);
+  border-top: 1px solid var(--pink-border);
+  border-bottom: 1px solid var(--pink-border);
+  padding: 11px 14px 13px;
+}
+.wl-head { display: flex; align-items: flex-start; justify-content: space-between; }
+.wl-title { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; }
+.wl-sub { font-size: 10.5px; color: var(--muted); margin-top: 3px; }
+.why {
+  border: 1px solid var(--pink-border);
+  background: #fff;
+  border-radius: 999px;
+  padding: 3px 9px;
+  font-size: 9.5px;
+  font-weight: 600;
+  color: var(--pink);
+  white-space: nowrap;
+}
+.wl-rail {
+  display: flex; gap: 10px; margin-top: 10px;
+  overflow-x: auto; overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+}
+.wl-rail::-webkit-scrollbar { display: none; }
+.wl-card { width: 106px; flex: 0 0 106px; scroll-snap-align: start; }
+.wl-card.peek { flex: 0 0 46px; width: 46px; overflow: hidden; }
+.wl-img {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border-radius: 3px;
+  overflow: hidden;
+  background: #ddd;
+}
+.wl-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.saved {
+  position: absolute;
+  top: 0; left: 0;
+  background: var(--pink);
+  color: #fff;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: .4px;
+  padding: 2px 5px;
+  border-bottom-right-radius: 3px;
+}
+.xbtn {
+  position: absolute;
+  top: 4px; right: 4px;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .92);
+  border: 1px solid var(--divider);
+  display: flex; align-items: center; justify-content: center;
+}
+.wl-brand { font-size: 11px; font-weight: 700; text-transform: uppercase; margin-top: 5px; }
+.wl-desc {
+  font-size: 10px; color: var(--muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.price { display: flex; align-items: baseline; gap: 4px; flex-wrap: wrap; margin-top: 2px; }
+.price .now { font-size: 11.5px; font-weight: 700; }
+.price .mrp { font-size: 10px; color: var(--muted); text-decoration: line-through; }
+.price .off { font-size: 10px; color: var(--orange); font-weight: 600; }
+
+/* ---------- product grid ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  padding: 12px 14px 0;
+}
+.pcard .pimg {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: 3px;
+  background: #ddd;
+}
+.pcard .pimg img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ribbon {
+  position: absolute; top: 0; left: 0;
+  background: var(--purple);
+  color: #fff;
+  font-size: 8.5px; font-weight: 700;
+  padding: 3px 7px;
+  border-bottom-right-radius: 4px;
+}
+.rating {
+  position: absolute; bottom: 6px; left: 6px;
+  background: rgba(255, 255, 255, .95);
+  border-radius: 2px;
+  padding: 2px 6px;
+  font-size: 10px; font-weight: 700;
+  display: flex; align-items: center; gap: 3px;
+}
+.rating .sep { color: var(--divider); }
+.rating .cnt { color: var(--muted); font-weight: 500; }
+.heart-tr { position: absolute; top: 6px; right: 6px; }
+.pbrand {
+  font-size: 13.5px; font-weight: 700; margin-top: 6px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.pdesc {
+  font-size: 12px; color: var(--muted); margin-top: 1px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* ---------- floating filter bar ---------- */
+.filterbar {
+  position: absolute;
+  left: 18px; right: 18px; bottom: 16px;
+  height: 54px;
+  background: #fff;
+  border-radius: 999px;
+  box-shadow: 0 3px 16px rgba(0, 0, 0, .16);
+  display: flex;
+  align-items: center;
+}
+.filterbar div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 10.5px;
+  font-weight: 500;
+}
+
+/* ---------- preferences / why-this sheet ---------- */
+.prefs { background: #F5F5F6; flex: 1; overflow: hidden; }
+
+.why-card {
+  background: var(--pink-bg);
+  border-bottom: 1px solid var(--pink-border);
+  padding: 14px;
+}
+.why-card .h {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 13.5px; font-weight: 700;
+}
+.why-card ul { list-style: none; margin-top: 9px; }
+.why-card li {
+  font-size: 11.5px; line-height: 17px; color: #4a4d5c;
+  padding-left: 16px; position: relative; margin-bottom: 3px;
+}
+.why-card li::before {
+  content: ""; position: absolute; left: 4px; top: 7px;
+  width: 4px; height: 4px; border-radius: 50%; background: var(--pink);
+}
+
+.group-label {
+  font-size: 10.5px; font-weight: 700; letter-spacing: .6px;
+  color: var(--muted); padding: 16px 16px 7px;
+}
+.card {
+  background: #fff; margin: 0 12px; border-radius: 8px; overflow: hidden;
+}
+.row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 13px 14px;
+  border-bottom: 1px solid var(--divider);
+}
+.row:last-child { border-bottom: 0; }
+.row .txt { flex: 1; }
+.row .t { font-size: 13px; font-weight: 600; }
+.row .s { font-size: 10.5px; color: var(--muted); margin-top: 2px; line-height: 14px; }
+.row .chev { color: var(--muted); }
+
+/* plain iOS switch: green pill, one white knob, nothing else */
+.sw {
+  width: 46px; height: 28px; border-radius: 999px;
+  background: #34C759; position: relative; flex: 0 0 46px;
+}
+.sw::after {
+  content: ""; position: absolute; top: 2px; right: 2px;
+  width: 24px; height: 24px; border-radius: 50%;
+  background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, .3);
+}
+.sw.off { background: #E4E4E7; }
+.sw.off::after { right: auto; left: 2px; }
+
+.note {
+  font-size: 10.5px; color: var(--muted); line-height: 15px;
+  padding: 10px 18px 0;
+}
+
+/* ---------- dismissal state ---------- */
+/* The card stays in place, greyed, so cause and effect read in one frame. */
+.wl-card.hidden .wl-img img { filter: grayscale(1) brightness(1.18); opacity: .45; }
+.wl-card.hidden .saved { background: #B9BBC4; }
+.wl-card.hidden .wl-brand,
+.wl-card.hidden .wl-desc,
+.wl-card.hidden .price { opacity: .38; }
+.hidden-tag {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255, 255, 255, .34);
+}
+.hidden-tag span {
+  background: rgba(40, 44, 63, .82); color: #fff;
+  font-size: 9.5px; font-weight: 700; letter-spacing: .4px;
+  padding: 3px 8px; border-radius: 3px;
+}
+
+.snackbar {
+  margin: 10px 14px 0;
+  background: #22252F;
+  border-radius: 8px;
+  padding: 13px 14px;
+  display: flex; align-items: center; gap: 10px;
+}
+.snackbar .msg { flex: 1; color: #fff; font-size: 12.5px; line-height: 16px; }
+.snackbar .msg b { display: block; font-weight: 700; }
+.snackbar .remove {
+  color: #FF9CB2; font-size: 12px; font-weight: 800; letter-spacing: .4px;
+  white-space: nowrap; padding: 7px 10px;
+}
+.snackbar .undo {
+  background: #fff; color: #22252F;
+  font-size: 12px; font-weight: 800; letter-spacing: .4px;
+  border-radius: 999px; padding: 8px 15px; white-space: nowrap;
+}
+
+/* ---------- product detail page ---------- */
+.pdp-head {
+  height: 46px; flex: 0 0 46px;
+  display: flex; align-items: center; gap: 18px;
+  padding: 0 14px; background: #fff;
+}
+.pdp-head .sp { flex: 1; }
+
+.hero { position: relative; flex: 0 0 300px; overflow: hidden; background: #f4f4f6; }
+.hero img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; }
+.hero .count {
+  position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+  background: rgba(255,255,255,.92); border-radius: 999px;
+  padding: 2px 9px; font-size: 10px; font-weight: 600;
+}
+
+.pdp-info { padding: 11px 14px 0; }
+.pdp-brand { font-size: 16px; font-weight: 700; }
+.pdp-name { font-size: 13px; color: var(--muted); margin-top: 1px; }
+.rate-pill {
+  display: inline-flex; align-items: center; gap: 4px;
+  border: 1px solid var(--divider); border-radius: 3px;
+  padding: 2px 7px; margin-top: 7px; font-size: 11.5px; font-weight: 700;
+}
+.rate-pill .cnt { color: var(--muted); font-weight: 500; }
+.pdp-price { display: flex; align-items: baseline; gap: 6px; margin-top: 8px; }
+.pdp-price .now { font-size: 18px; font-weight: 700; }
+.pdp-price .mrp { font-size: 12.5px; color: var(--muted); }
+.pdp-price .mrp s { text-decoration: line-through; }
+.pdp-price .off { font-size: 12.5px; color: var(--orange); font-weight: 700; }
+.tax { font-size: 10.5px; color: var(--green); font-weight: 600; margin-top: 2px; }
+
+.size-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 14px 6px;
+}
+.size-row .lbl { font-size: 12px; font-weight: 700; letter-spacing: .4px; }
+.size-row .chart { font-size: 11px; font-weight: 700; color: var(--pink); }
+.sizes { display: flex; gap: 9px; padding: 0 14px; }
+.sizes span {
+  width: 34px; height: 34px; border-radius: 50%;
+  border: 1px solid var(--divider);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11.5px; font-weight: 600;
+}
+.sizes span.on { border-color: var(--pink); color: var(--pink); }
+
+.cta { display: flex; gap: 10px; padding: 12px 14px 0; }
+.cta button {
+  flex: 1; height: 40px; border-radius: 4px; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  border: 1px solid var(--divider); background: #fff; color: var(--text);
+  font-family: inherit;
+}
+.cta button.bag { background: var(--pink); color: #fff; border-color: var(--pink); }
+
+/* pair-with rail reuses the wishlist strip look */
+.pair { margin-top: 14px; }
+.pair .wl-card { width: 112px; flex: 0 0 112px; }
+.pair .wl-rail { gap: 9px; }
+
+/* complement category chips (Bottoms / Footwear / Layering) */
+.pair-chips { display: flex; gap: 8px; margin-top: 10px; }
+.pchip {
+  border: 1px solid var(--divider); border-radius: 999px;
+  padding: 5px 12px; font-size: 11px; font-weight: 600;
+  color: var(--muted); background: #fff; white-space: nowrap;
+}
+.pchip.on { border-color: var(--pink); color: var(--pink); background: var(--pink-bg); }
+/* [hidden] alone loses to .wl-rail{display:flex}; this restores it */
+.wl-rail[hidden] { display: none; }
+.pair .wl-desc { white-space: normal; height: 26px; overflow: hidden; line-height: 13px; }
+
+.sect-title {
+  font-size: 12.5px; font-weight: 700; letter-spacing: .5px;
+  padding: 14px 14px 8px;
+}
+
+.fade-bottom {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 90px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff 78%);
+  pointer-events: none;
+}
+/* the PDP fills the frame right to the edge, so only a thin scroll hint */
+.fade-bottom.thin { height: 30px; }
+
+.caption {
+  width: 390px;
+  text-align: center;
+  font-size: 12px;
+  color: #5b5d66;
+  margin-top: -18px;
+}

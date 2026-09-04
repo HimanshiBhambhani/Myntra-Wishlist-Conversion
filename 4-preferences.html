@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mitigation 2 · Why this? → Recommendation preferences</title>
+<link rel="stylesheet" href="_shared.css">
+</head>
+<body>
+
+<div class="phone">
+
+  <!-- status bar -->
+  <div class="status">
+    <span>19:43</span>
+    <span class="icons">
+      <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
+      <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 11.2 10.1 8.8a3.1 3.1 0 0 0-4.2 0L8 11.2Zm-4-4.5a6.6 6.6 0 0 1 8 0l1.4-1.6a8.7 8.7 0 0 0-10.8 0L4 6.7ZM8 .8a11 11 0 0 0-7.1 2.6L2.3 5A9 9 0 0 1 8 3a9 9 0 0 1 5.7 2l1.4-1.6A11 11 0 0 0 8 .8Z"/></svg>
+      <svg width="26" height="12" viewBox="0 0 26 12" fill="none"><rect x=".6" y=".6" width="21" height="10.8" rx="3" stroke="currentColor" stroke-opacity=".38"/><rect x="2.2" y="2.2" width="17" height="7.6" rx="1.8" fill="currentColor"/><path d="M23.2 4.2v3.6a2 2 0 0 0 0-3.6Z" fill="currentColor" fill-opacity=".45"/></svg>
+    </span>
+  </div>
+
+  <!-- header: back arrow and title only -->
+  <div class="header">
+    <span data-href="1-search.html"><svg width="9" height="16" viewBox="0 0 9 16" fill="none"><path d="M8 1 1.5 8 8 15" stroke="#282C3F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    <div class="title" style="text-transform:none;font-size:16px">Recommendation preferences</div>
+  </div>
+
+  <div class="prefs">
+
+    <!-- the answer to "Why this?" comes first, before any controls -->
+    <div class="why-card">
+      <div class="h">
+        <svg width="13" height="12" viewBox="0 0 20 18" fill="#FF3F6C"><path d="M10 16.5C-3.2 9.1 5.1-2.4 10 3.6 14.9-2.4 23.2 9.1 10 16.5Z"/></svg>
+        Why am I seeing this?
+      </div>
+      <ul>
+        <li>You saved these items to your wishlist</li>
+        <li>They match what you are searching for right now</li>
+        <li>They are still in stock and in your size</li>
+      </ul>
+      <ul style="margin-top:8px">
+        <li style="color:var(--muted)">We never use price drops or ads to decide this — only what you saved.</li>
+      </ul>
+    </div>
+
+    <div class="group-label">WISHLIST SUGGESTIONS</div>
+    <div class="card">
+      <div class="row">
+        <div class="txt">
+          <div class="t">Show saved items in search results</div>
+          <div class="s">A "From your wishlist" strip above your results</div>
+        </div>
+        <span class="sw"></span>
+      </div>
+      <div class="row">
+        <div class="txt">
+          <div class="t">Show "Pair with this" on product pages</div>
+          <div class="s">Saved items that complete the look you are viewing</div>
+        </div>
+        <span class="sw"></span>
+      </div>
+      <div class="row">
+        <div class="txt">
+          <div class="t">Include items I saved over 60 days ago</div>
+          <div class="s">Older saves are usually less relevant</div>
+        </div>
+        <span class="sw off"></span>
+      </div>
+    </div>
+
+    <div class="group-label">HIDDEN ITEMS</div>
+    <div class="card">
+      <div class="row">
+        <div class="txt">
+          <div class="t">Manage hidden suggestions</div>
+          <div class="s">1 item hidden — still saved in your wishlist</div>
+        </div>
+        <svg class="chev" width="8" height="13" viewBox="0 0 9 16" fill="none"><path d="m1 1 6.5 7L1 15" stroke="#94969F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+
+    <div class="note">
+      Turning these off does not change your wishlist. You can still find everything you
+      saved under Profile › Wishlist.
+    </div>
+
+  </div>
+
+</div>
+
+<script src="_proto.js"></script>
+</body>
+</html>
