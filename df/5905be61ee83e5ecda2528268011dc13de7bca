@@ -1,0 +1,39 @@
+1-search.html
+  s_ecbb58d652ebb2::t_64ca27a307af30 29
+index.html
+  s_ecbb58d652ebb2::t_59a2ffd2f433e6 103
+2-pdp-1-hm-graphic-tee.html
+  s_ecbb58d652ebb2::t_7d38db908412ae 26
+wishlist.html
+  s_ecbb58d652ebb2::t_3b10b74d4243e4 1-628
+2-pdp-2-sassafras-high-neck.html
+  s_ecbb58d652ebb2::t_438be348061b17 26
+2-pdp-3-stylecast-printed.html
+  s_ecbb58d652ebb2::t_8a777499d0c96a 26
+2-pdp-4-stylecast-slyck-flared.html
+  s_ecbb58d652ebb2::t_ff5e51c9637941 26
+2-pdp-5-glitchez-striped.html
+  s_ecbb58d652ebb2::t_9bdd8fb66844ab 26
+2-pdp-6-sassafras-ribbed.html
+  s_ecbb58d652ebb2::t_622d5677dbf509 26
+2-pdp-7-glitchez-offshoulder.html
+  s_ecbb58d652ebb2::t_dd93acb60b8355 26
+3-dismiss.html
+  s_ecbb58d652ebb2::t_48575ad6cb4024 29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "df5905be61ee83e5ecda2528268011dc13de7bca",
+  "prompts": {},
+  "sessions": {
+    "s_ecbb58d652ebb2": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "06337ec8-67ca-4f03-be29-ef24a19defdb",
+        "model": "claude-opus-4-5"
+      },
+      "human_author": "Himanshi Bhambhani <himanshibhambhani@gmail.com>"
+    }
+  }
+}
